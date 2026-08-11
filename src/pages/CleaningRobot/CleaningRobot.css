@@ -1,0 +1,123 @@
+.white-info-cards {
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+}
+.white-info-card {
+    width: 100%;
+    background: #fdfdfd;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    padding: 30px;
+}
+.white-card-top {
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    gap:25px;
+    
+}
+.white-card-top h2 {
+    color: #1F2937;
+    font-size:26px;
+    margin: 0;
+    text-align: center;
+}
+.white-card-content{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+.white-card-content p {
+    margin: 5px 0;
+}    
+@media (max-width:1100px){
+    .white-info-cards{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width:800px){
+    .white-info-cards{
+        grid-template-columns: 1fr;
+    }
+}
+
+.inactive-orange-button{ 
+    background: #f59e0b;
+    color: #fdfdfd;
+    font-weight:bold;
+    margin-top: 10px;
+
+}
+.active-orange-button {
+    background: #fdfdfd;
+    color: #f59e0b; 
+    font-weight:bold;
+    border: 1px solid #f59e0b;
+    margin-top: 10px;
+}
+.progress-bar, .battery-bar {
+    width: 100%;
+    height:20px;
+    background:#E5E7EB;
+    border-radius:15px;
+    overflow:hidden;
+    margin:25px 0 20px;
+    border: 1px solid #f59e0b;
+}
+
+.progress-fill, .battery-fill{
+    height:100%;
+    background:#F59E0B;
+    transition:width .5s ease;
+}
+
+.bus-map{
+    width:80%;
+    margin-top:40px;
+    position:relative;
+}
+
+.bus-image{
+    position:relative;
+    margin-top: 25px;
+}
+.bus-map img{
+    width:100%;
+    display:block;
+    border-radius: 15px;
+    margin-top: 25px;
+    margin-bottom:10px;
+}
+.robot-marker{
+    background:#F59E0B;
+    border-radius:50%;
+    position:absolute;
+    width:18px;
+    height:18px;
+    transform:translate(-50%, -50%);
+    transition:all .5s ease;
+    z-index: 10;
+}
+
+.bus-image h3 {
+    font-size: 27px;
+}
+
+@media (max-width:1000px){
+    .bus-map{
+        display: none;
+    }
+}
+
+.battery-value {
+    text-align: center;
+}

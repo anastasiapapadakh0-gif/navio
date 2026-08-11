@@ -1,0 +1,18 @@
+.liveview{
+    width:80%;
+    margin-top:40px;
+    position:relative;
+    background: #fdfdfd;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    padding: 30px;
+}
+
+.roofview{
+    width:100%;
+    margin-top:25px;
+    border-radius:15px;
+}

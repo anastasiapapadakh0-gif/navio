@@ -1,0 +1,35 @@
+.recommendation{
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+}
+
+.recommendation h2{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.recommendation h3{
+    font-size: 30px;
+}
+
+.cool{
+    color:#3b82f6;
+}
+
+.warm{
+    color:#f97316;
+}
+
+.good{
+    color:#22c55e;
+}
+
+.recommendation-text p {
+    margin-bottom: 1px;
+    text-align: left;
+}

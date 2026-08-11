@@ -1,0 +1,29 @@
+.splash{
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+.logo{
+    width:320px;
+}
+.splash p{
+    color:#6B7280;
+    margin-top:10px;
+    font-size: 18px;
+}
+button{
+    margin-top:40px;
+    padding:16px 42px;
+    border:none;
+    border-radius:15px;
+    font-size:18px;
+    cursor:pointer;
+    color:white;
+}
+.green-button:hover{
+    background:#118e82;
+}
+
+.green-button{
+    background:#13aa9a;
+}

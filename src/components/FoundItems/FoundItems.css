@@ -1,0 +1,27 @@
+.found-items {
+    width: 80%;
+    margin-top: 30px;
+}
+
+.found-items h3{
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+.found-item{
+    justify-content:flex-start;
+    align-items:flex-start;
+    width: 100%;
+    background: #fdfdfd;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    padding:30px 0 30px 40px;
+}
+.found-items li {
+    margin-bottom: 10px;
+}
+.found-items li::marker {
+    color: orange;
+    font-weight: bold;
+}
