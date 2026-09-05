@@ -1,0 +1,74 @@
+.live-view-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 15px;
+}
+
+.video-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    max-width: 800px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.stream-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: #1e293b;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.live-badge {
+    color: #ef4444;
+}
+
+.stream-display {
+    width: 100%;
+    height: 380px;
+    background-color: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stream-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stream-placeholder {
+    color: #94a3b8;
+    font-size: 16px;
+}
+
+.stream-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    background-color: #f8fafc;
+}
+
+.stream-btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.stream-btn:hover {
+    background-color: #1d4ed8;
+}

@@ -15,7 +15,10 @@ import DrivingAssistance from "./pages/DrivingAssistance/DrivingAssistance";
 import ClimateControl from "./pages/ClimateControl/ClimateControl";
 import CleaningRobot from "./pages/CleaningRobot/CleaningRobot";
 import RoofControl from "./pages/RoofControl/RoofControl";
-
+import LiveView from "./pages/LiveView/LiveView";
+import Attractions from "./pages/Attractions/Attractions";
+import CoffeeOrdering from "./pages/CoffeeOrdering/CoffeeOrdering";
+import WalkingTour from "./pages/WalkingTour/WalkingTour";
 
 function App() {
   return (
@@ -28,7 +31,11 @@ function App() {
 
       {/* Σελίδες επιβάτη */}
       <Route path="/passenger" element={<Passenger />} />
-
+      <Route path="/live-view" element={<LiveView />} />
+      <Route path="/attractions" element={<Attractions />} />
+      <Route path="/coffee-ordering" element={<CoffeeOrdering />} />
+      <Route path="/walking-tour" element={<WalkingTour />} />
+      
       {/* Σελίδες οδηγού */}
       <Route path="/driver" element={<Driver />} />
       <Route path="/driving-assistance" element={<DrivingAssistance />} />
