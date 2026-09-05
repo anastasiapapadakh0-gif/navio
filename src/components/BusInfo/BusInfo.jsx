@@ -55,7 +55,7 @@ function BusInfo() {
     
     return (
 
-    <div className="driver-information">
+            <div className="driver-information">
 
                 <div className="driver-info-item">
                     <img src={bus} />
@@ -87,6 +87,7 @@ function BusInfo() {
                 </div>
 
             </div>
+
     );
     
 }export default BusInfo;

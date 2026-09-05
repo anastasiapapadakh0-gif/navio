@@ -18,7 +18,15 @@ import alertmood from "../../assets/sounds/driver/mood-voice.mp3";
 
 import { useState, useEffect } from "react";
 
-
+// κοινό κανάλι ήχου
+let currentAudio = null;
+function playSound(src) {
+    if (currentAudio) {
+        currentAudio.pause();
+    }
+    currentAudio = new Audio(src);
+    currentAudio.play().catch(()=> {});
+}
 function DrivingAssistance() {
 
     const [warning, setWarning] = useState("none");
@@ -36,17 +44,21 @@ function DrivingAssistance() {
 
             if (random === 0) {
                 setWarning("speed");
-                new Audio(alertspeed).play();
+                playSound(alertspeed);
             }
 
             else if (random === 1) {
                 setWarning("lane");
-                new Audio(alertlane).play();
+                playSound(alertlane);
             }
 
             else if (random === 2) {
                 setShowMoodPopup(true);
-                new Audio(alertmood).play();
+                playSound(alertmood);
+                // αυτοματο κλείσιμο, ώστε το popup να μην μπλοκάρει τα υπόλοιπα alerts
+                setTimeout(() => {
+                    setShowMoodPopup(false);
+                }, 5000);
             }
 
         }, 10000);
@@ -61,7 +73,7 @@ function DrivingAssistance() {
         const interval = setInterval(() => {
 
             setWarning("doors");
-            new Audio(alertdoors).play();
+            playSound(alertdoors);
 
             setTimeout(() => {
                 setWarning("none");
