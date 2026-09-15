@@ -50,7 +50,7 @@ function Passenger() {
                     buttonText="Order Now"
                     background={cardBg1}
                     buttonClass="button-blue"
-                    onClick={() => navigate("/cοffee-ordering")}
+                    onClick={() => navigate("/coffee-ordering")}
                 />
 
                 <ActionCard
