@@ -159,6 +159,41 @@
     font-weight: 600;
 }
 
+.section-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.fav-counter-badge {
+    background: #fee2e2;
+    color: #991b1b;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.sight-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fav-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 2px 6px;
+}
+
+.fav-btn:hover {
+    transform: scale(1.2);
+}
+
 /* Responsive για μικρότερες οθόνες */
 @media (max-width: 900px) {
     .attractions-layout-grid {

@@ -1,105 +1,136 @@
-/* Σελίδα τουριστικής πλοήγησης εκτός λεωφορείου.
-Επιτρέπει στον τουρίστα να πλοηγείται με τα πόδια σε αξιοθέατα, συνεργαζόμενα εστιατόρια 
-και να βρίσκει εύκολα την πλησιέστερη στάση για να επιβιβαστεί ξανά. */
-
 import React, { useState } from "react";
 import "./WalkingTour.css";
 import Header from "../../components/Header/Header";
 import BusInfo from "../../components/BusInfo/BusInfo";
 import Footer from "../../components/Footer/Footer";
 
-// Χρησιμοποιούμε μια διαθέσιμη εικόνα ως φόντο/χάρτη
-import mapBg from "../../assets/images/driver/climate.png";
+// Βήματα περιήγησης
+const tourSteps = [
+    { text: "Head north on Dionysiou Areopagitou towards Parthenon (120m).", lat: 37.9698, lon: 23.7275 },
+    { text: "Turn right onto Rovertou Galli St (80m).", lat: 37.9688, lon: 23.7262 },
+    { text: "Continue straight along the pedestrian path (200m).", lat: 37.9705, lon: 23.7245 },
+    { text: "You have arrived at the Monument Viewpoint!", lat: 37.9715, lon: 23.7235 }
+];
+
+// Βήματα επιστροφής στο λεωφορείο
+const returnSteps = [
+    { text: "Turn back south down the pedestrian path towards Rovertou Galli (150m).", lat: 37.9705, lon: 23.7245 },
+    { text: "Walk past the olive grove heading directly to the main boulevard (90m).", lat: 37.9692, lon: 23.7268 },
+    { text: "You have arrived safely back at the Navio Bus Stop!", lat: 37.9698, lon: 23.7285 }
+];
 
 function WalkingTour() {
-    const [selectedCategory, setSelectedCategory] = useState("sights");
-    const [activeDestination, setActiveDestination] = useState(null);
+    const [stepIndex, setStepIndex] = useState(0);
+    const [isReturning, setIsReturning] = useState(false);
+    const [returnIndex, setReturnIndex] = useState(0);
 
-    const locations = {
-        sights: [
-            { id: 1, name: "Ancient Agora", distance: "350m (4 min walk)", info: "Historic marketplace and civic center." },
-            { id: 2, name: "Temple of Olympian Zeus", distance: "500m (6 min walk)", info: "Colossal ruined temple dedicated to Zeus." }
-        ],
-        restaurants: [
-            { id: 3, name: "Taverna Plaka (Partner)", distance: "200m (2 min walk)", info: "Traditional Greek cuisine - 10% discount for bus passengers." },
-            { id: 4, name: "Acropolis View Bistro", distance: "450m (5 min walk)", info: "Mediterranean menu with rooftop view." }
-        ],
-        busStops: [
-            { id: 5, name: "Stop A: Syntagma Square", distance: "120m (1 min walk)", info: "Next bus arrives in: 8 mins" },
-            { id: 6, name: "Stop B: Monastiraki Station", distance: "400m (5 min walk)", info: "Next bus arrives in: 14 mins" }
-        ]
+    // Διαχείριση βημάτων περιήγησης
+    const handleNextTour = () => {
+        if (stepIndex < tourSteps.length - 1) {
+            setStepIndex(stepIndex + 1);
+        }
     };
+
+    // Διαχείριση βημάτων επιστροφής
+    const handleStartReturn = () => {
+        setIsReturning(true);
+        setReturnIndex(0);
+    };
+
+    const handleNextReturn = () => {
+        if (returnIndex < returnSteps.length - 1) {
+            setReturnIndex(returnIndex + 1);
+        }
+    };
+
+    const handleBackToTour = () => {
+        setIsReturning(false);
+    };
+
+    const handleRestartAll = () => {
+        setStepIndex(0);
+        setReturnIndex(0);
+        setIsReturning(false);
+    };
+
+    // Επιλογή τρέχοντος σημείου για τον χάρτη
+    const currentCoords = isReturning ? returnSteps[returnIndex] : tourSteps[stepIndex];
+
+    const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${currentCoords.lon - 0.004}%2C${currentCoords.lat - 0.0025}%2C${currentCoords.lon + 0.004}%2C${currentCoords.lat + 0.0025}&layer=mapnik&marker=${currentCoords.lat}%2C${currentCoords.lon}`;
 
     return (
         <div className="page walking-tour-page">
             <Header
-                title="City Walking Tour & GPS"
-                description="Explore the city on foot with real-time GPS guidance and discover partner spots."
+                title="Walking Tour GPS"
+                description="Explore historical alleys on foot without losing your bus."
             />
 
             <BusInfo />
 
-            <div className="walking-tour-container">
-                <div className="tour-nav-panel">
-                    <div className="category-tabs">
-                        <button
-                            className={`tab-btn ${selectedCategory === "sights" ? "active" : ""}`}
-                            onClick={() => { setSelectedCategory("sights"); setActiveDestination(null); }}
-                        >
-                            🏛️ Sights
-                        </button>
-                        <button
-                            className={`tab-btn ${selectedCategory === "restaurants" ? "active" : ""}`}
-                            onClick={() => { setSelectedCategory("restaurants"); setActiveDestination(null); }}
-                        >
-                            🍽️ Restaurants
-                        </button>
-                        <button
-                            className={`tab-btn ${selectedCategory === "busStops" ? "active" : ""}`}
-                            onClick={() => { setSelectedCategory("busStops"); setActiveDestination(null); }}
-                        >
-                            🚏 Nearest Bus Stop
-                        </button>
+            <div className="tour-simple-layout">
+                <div className="tour-box">
+                    <div className="bus-alert-box">
+                        <p>🚌 <strong>Bus Departure:</strong> 25 minutes left at current stop</p>
                     </div>
 
-                    <div className="places-list">
-                        {locations[selectedCategory].map((place) => (
-                            <div
-                                key={place.id}
-                                className={`place-card ${activeDestination?.id === place.id ? "selected-place" : ""}`}
-                            >
-                                <div className="place-text">
-                                    <h4>{place.name}</h4>
-                                    <span className="distance-badge">📍 {place.distance}</span>
-                                    <p>{place.info}</p>
-                                </div>
-                                <button
-                                    className="guide-btn"
-                                    onClick={() => setActiveDestination(place)}
-                                >
-                                    {activeDestination?.id === place.id ? "Navigating..." : "Start Navigation"}
+                    {isReturning ? (
+                        /* Πίνακας Επιστροφής */
+                        <div className="step-card return-card">
+                            <div className="step-header-tags">
+                                <span className="route-badge return-badge">Return Route</span>
+                                <span className="step-number">Step {returnIndex + 1} of {returnSteps.length}</span>
+                            </div>
+
+                            <h3>🧭 {returnSteps[returnIndex].text}</h3>
+
+                            <div className="tour-buttons">
+                                {returnIndex < returnSteps.length - 1 ? (
+                                    <button className="btn-tour btn-return" onClick={handleNextReturn}>
+                                        Next Return Step ➔
+                                    </button>
+                                ) : (
+                                    <button className="btn-tour btn-primary" onClick={handleRestartAll}>
+                                        Boarded Bus / Reset 🔄
+                                    </button>
+                                )}
+
+                                <button className="btn-tour btn-secondary" onClick={handleBackToTour}>
+                                    Cancel & Resume Tour
                                 </button>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ) : (
+                        /* Πίνακας Περιήγησης */
+                        <div className="step-card">
+                            <div className="step-header-tags">
+                                <span className="step-number">Step {stepIndex + 1} of {tourSteps.length}</span>
+                                <span className="gps-live-tag">● Live GPS</span>
+                            </div>
+
+                            <h3>{tourSteps[stepIndex].text}</h3>
+
+                            <div className="tour-buttons">
+                                {stepIndex < tourSteps.length - 1 ? (
+                                    <button className="btn-tour btn-primary" onClick={handleNextTour}>
+                                        Next Step ➔
+                                    </button>
+                                ) : (
+                                    <button className="btn-tour btn-primary" onClick={() => setStepIndex(0)}>
+                                        Restart Tour 🔄
+                                    </button>
+                                )}
+
+                                <button className="btn-tour btn-return" onClick={handleStartReturn}>
+                                    Guide Me Back to Bus 🚌
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
-                <div className="map-display-panel">
-                    <h3>Interactive GPS Map</h3>
-                    <div className="gps-map-box">
-                        <img src={mapBg} alt="Walking Map" className="gps-map-img" />
-                        
-                        {activeDestination ? (
-                            <div className="gps-guidance-banner">
-                                <strong>🧭 GPS Active: Walking to {activeDestination.name}</strong>
-                                <p>Follow pedestrian route • {activeDestination.distance}</p>
-                            </div>
-                        ) : (
-                            <div className="gps-guidance-banner neutral">
-                                <p>Select a destination to start turn-by-turn walking directions.</p>
-                            </div>
-                        )}
-                    </div>
+                {/* Χάρτης */}
+                <div className="map-box">
+                    <iframe title="Map" src={mapUrl} className="simple-map" />
                 </div>
             </div>
 

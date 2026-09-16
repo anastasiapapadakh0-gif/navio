@@ -1,160 +1,199 @@
-/* Σελίδα παραγγελίας από συνεργαζόμενη καφετέρια.
-Επιτρέπει στους επιβάτες να επιλέγουν ροφήματα και σνακ, 
-να ορίζουν τη στάση παράδοσης και να ολοκληρώνουν την πληρωμή με κάρτα. */
-
 import React, { useState } from "react";
 import "./CoffeeOrdering.css";
 import Header from "../../components/Header/Header";
 import BusInfo from "../../components/BusInfo/BusInfo";
 import Footer from "../../components/Footer/Footer";
 
+const CAFES = [
+    { id: "c1", name: "Acropolis Coffee Lab", nextStop: "Stop 4: Acropolis Museum" },
+    { id: "c2", name: "Plaka Urban Roasters", nextStop: "Stop 5: Monastiraki" },
+    { id: "c3", name: "Metro Snack & Brew", nextStop: "Stop 6: Syntagma" }
+];
+
+const MENU_ITEMS = [
+    { id: 1, name: "Freddo Espresso", category: "Καφές", price: 3.20, icon: "☕" },
+    { id: 2, name: "Freddo Cappuccino", category: "Καφές", price: 3.50, icon: "🥤" },
+    { id: 3, name: "Φυσικός Χυμός Πορτοκάλι", category: "Ροφήματα", price: 3.00, icon: "🍊" },
+    { id: 4, name: "Coca Cola (330ml)", category: "Αναψυκτικά", price: 1.80, icon: "🥤" },
+    { id: 5, name: "Τοστ Γαλοπούλα - Τυρί", category: "Μικρά Γεύματα", price: 2.80, icon: "🥪" },
+    { id: 6, name: "Κρουασάν Βουτύρου", category: "Μικρά Γεύματα", price: 2.20, icon: "🥐" }
+];
+
 function CoffeeOrdering() {
-    const [cart, setCart] = useState([]);
-    const [selectedStop, setSelectedStop] = useState("Next Stop: Syntagma");
-    const [paymentDone, setPaymentDone] = useState(false);
-    const [cardNumber, setCardNumber] = useState("");
+    const [selectedCafe, setSelectedCafe] = useState(CAFES[0]);
+    const [cart, setCart] = useState({});
+    const [paymentMethod, setPaymentMethod] = useState("card");
+    const [isConfirmed, setIsConfirmed] = useState(false);
 
-    const menuItems = [
-        { id: 1, name: "Espresso / Cappuccino", category: "Coffee", price: 2.50 },
-        { id: 2, name: "Iced Freddo Espresso", category: "Coffee", price: 3.00 },
-        { id: 3, name: "Fresh Orange Juice", category: "Beverage", price: 3.50 },
-        { id: 4, name: "Mineral Water (500ml)", category: "Beverage", price: 0.50 },
-        { id: 5, name: "Turkey & Cheese Toast", category: "Snack", price: 2.80 },
-        { id: 6, name: "Butter Croissant", category: "Snack", price: 2.00 }
-    ];
-
-    const addToCart = (item) => {
-        setCart([...cart, item]);
+    const handleQuantity = (id, delta) => {
+        setCart((prev) => {
+            const current = (prev[id] || 0) + delta;
+            const updated = { ...prev };
+            if (current <= 0) {
+                delete updated[id];
+            } else {
+                updated[id] = current;
+            }
+            return updated;
+        });
     };
 
-    const removeFromCart = (indexToRemove) => {
-        setCart(cart.filter((_, index) => index !== indexToRemove));
+    const total = Object.entries(cart).reduce((sum, [id, qty]) => {
+        const item = MENU_ITEMS.find((m) => m.id === Number(id));
+        return sum + (item ? item.price * qty : 0);
+    }, 0);
+
+    const handleCheckout = () => {
+        if (total > 0) setIsConfirmed(true);
     };
 
-    const totalPrice = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
-
-    const handleCheckout = (e) => {
-        e.preventDefault();
-        if (cart.length === 0) {
-            alert("Your cart is empty! Please select at least one item.");
-            return;
-        }
-        if (cardNumber.trim().length < 4) {
-            alert("Please enter a valid card number.");
-            return;
-        }
-        setPaymentDone(true);
-    };
-
-    const resetOrder = () => {
-        setCart([]);
-        setPaymentDone(false);
-        setCardNumber("");
+    const handleReset = () => {
+        setCart({});
+        setIsConfirmed(false);
     };
 
     return (
-        <div className="page cafe-page">
+        <div className="page coffee-ordering-page">
             <Header
-                title="Partner Cafe & Snacks"
-                description="Order refreshments and pick them up freshly prepared at the next stop."
+                title="Παραγγελίες από Συνεργαζόμενες Καφετέριες"
+                description="Παραγγείλτε ρόφημα ή γεύμα και παραλάβετέ το στην επόμενη στάση του λεωφορείου."
             />
 
             <BusInfo />
 
-            <div className="cafe-container">
-                {paymentDone ? (
-                    <div className="order-success-card">
-                        <div className="success-icon">✅</div>
-                        <h2>Order Confirmed!</h2>
-                        <p>Your order will be delivered to your bus seat at: <strong>{selectedStop}</strong></p>
-                        <p>Total Paid: <strong>€{totalPrice}</strong></p>
-                        <button className="cafe-btn new-order-btn" onClick={resetOrder}>
-                            Make Another Order
-                        </button>
+            <div className="ordering-container">
+                {/* Επιλογή Συνεργαζόμενης Καφετέριας */}
+                <div className="cafe-selection-bar">
+                    <span className="cafe-select-label">🏪 Επιλέξτε Καφετέρια:</span>
+                    <div className="cafe-tabs">
+                        {CAFES.map((cafe) => (
+                            <button
+                                key={cafe.id}
+                                type="button"
+                                className={`cafe-tab-btn ${selectedCafe.id === cafe.id ? "active" : ""}`}
+                                onClick={() => setSelectedCafe(cafe)}
+                            >
+                                <strong>{cafe.name}</strong>
+                                <small>Παράδοση: {cafe.nextStop}</small>
+                            </button>
+                        ))}
                     </div>
-                ) : (
-                    <>
-                        <div className="menu-section">
-                            <h3>Available Menu</h3>
-                            <div className="menu-grid">
-                                {menuItems.map((item) => (
-                                    <div key={item.id} className="menu-card">
-                                        <div className="menu-details">
-                                            <h4>{item.name}</h4>
-                                            <span className="category-tag">{item.category}</span>
-                                            <p className="price">€{item.price.toFixed(2)}</p>
-                                        </div>
-                                        <button
-                                            className="add-btn"
-                                            onClick={() => addToCart(item)}
-                                        >
-                                            + Add
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                </div>
 
-                        <div className="checkout-section">
-                            <h3>Your Order</h3>
-                            <div className="cart-list">
-                                {cart.length === 0 ? (
-                                    <p className="empty-cart-msg">No items selected yet.</p>
-                                ) : (
-                                    cart.map((item, idx) => (
-                                        <div key={idx} className="cart-item">
-                                            <span>{item.name}</span>
-                                            <span>€{item.price.toFixed(2)}</span>
+                <div className="ordering-main-grid">
+                    {/* Μενού */}
+                    <div className="menu-box">
+                        <h2 className="section-title">Μενού: {selectedCafe.name}</h2>
+                        <div className="menu-cards-grid">
+                            {MENU_ITEMS.map((item) => {
+                                const qty = cart[item.id] || 0;
+                                return (
+                                    <div key={item.id} className="menu-card">
+                                        <div className="menu-card-icon">{item.icon}</div>
+                                        <div className="menu-card-info">
+                                            <h3>{item.name}</h3>
+                                            <span className="category-pill">{item.category}</span>
+                                            <span className="menu-price">€{item.price.toFixed(2)}</span>
+                                        </div>
+                                        <div className="qty-controls">
                                             <button
-                                                className="remove-btn"
-                                                onClick={() => removeFromCart(idx)}
+                                                type="button"
+                                                onClick={() => handleQuantity(item.id, -1)}
+                                                disabled={qty === 0}
                                             >
-                                                ✕
+                                                -
+                                            </button>
+                                            <span className="qty-text">{qty}</span>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleQuantity(item.id, 1)}
+                                            >
+                                                +
                                             </button>
                                         </div>
-                                    ))
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    {/* Καλάθι & Στάση Παράδοσης */}
+                    <div className="checkout-box">
+                        <div className="checkout-card">
+                            <h2 className="checkout-title">Σύνοψη Παραγγελίας</h2>
+
+                            {/* Σημαντική Ειδοποίηση Στάσης (Απαίτηση Εκφώνησης) */}
+                            <div className="delivery-station-alert">
+                                <span>📍 Στάση Παράδοσης:</span>
+                                <strong>{selectedCafe.nextStop}</strong>
+                                <small>Ο διανομέας θα παραδώσει την παραγγελία στη θέση σας κατά την άφιξη.</small>
+                            </div>
+
+                            {/* Λίστα Προϊόντων */}
+                            <div className="order-items-list">
+                                {Object.keys(cart).length === 0 ? (
+                                    <p className="empty-cart">Το καλάθι σας είναι άδειο.</p>
+                                ) : (
+                                    Object.entries(cart).map(([id, qty]) => {
+                                        const item = MENU_ITEMS.find((m) => m.id === Number(id));
+                                        return (
+                                            <div key={id} className="order-row">
+                                                <span>{item.name} × {qty}</span>
+                                                <strong>€{(item.price * qty).toFixed(2)}</strong>
+                                            </div>
+                                        );
+                                    })
                                 )}
                             </div>
 
                             <div className="cart-total">
-                                <strong>Total:</strong>
-                                <strong>€{totalPrice}</strong>
+                                <span>Σύνολο:</span>
+                                <strong>€{total.toFixed(2)}</strong>
                             </div>
 
-                            <form onSubmit={handleCheckout} className="payment-form">
-                                <label>Delivery Bus Stop:</label>
-                                <select
-                                    value={selectedStop}
-                                    onChange={(e) => setSelectedStop(e.target.value)}
-                                    className="cafe-input"
-                                >
-                                    <option value="Next Stop: Syntagma">Next Stop: Syntagma</option>
-                                    <option value="Stop: Monastiraki">Stop: Monastiraki</option>
-                                    <option value="Stop: Acropolis">Stop: Acropolis</option>
-                                </select>
+                            {/* Ένδειξη Τρόπου Πληρωμής (Μόνο Κάρτα) */}
+                            <div className="payment-options">
+                                <label className="payment-label">Τρόπος Πληρωμής:</label>
+                                <div className="card-only-badge">
+                                    💳 Χρέωση Πιστωτικής / Χρεωστικής Κάρτας
+                                </div>
+                            </div>
 
-                                <label>Card Number (Simulation):</label>
-                                <input
-                                    type="text"
-                                    placeholder="•••• •••• •••• 1234"
-                                    value={cardNumber}
-                                    onChange={(e) => setCardNumber(e.target.value)}
-                                    className="cafe-input"
-                                    required
-                                />
-
-                                <button
-                                    type="submit"
-                                    className="cafe-btn pay-btn"
-                                    disabled={cart.length === 0}
-                                >
-                                    Pay with Card (€{totalPrice})
-                                </button>
-                            </form>
+                            <button
+                                type="button"
+                                className="order-btn"
+                                disabled={total === 0}
+                                onClick={handleCheckout}
+                            >
+                                Ολοκλήρωση Παραγγελίας
+                            </button>
                         </div>
-                    </>
-                )}
+                    </div>
+                </div>
             </div>
+
+            {/* Επιβεβαίωση Παραγγελίας Modal */}
+            {isConfirmed && (
+                <div className="order-modal-backdrop">
+                    <div className="order-modal-box">
+                        <div className="modal-status-icon">✅</div>
+                        <h3>Η παραγγελία καταχωρήθηκε!</h3>
+                        <p className="modal-target-cafe">
+                            Κατάστημα: <strong>{selectedCafe.name}</strong>
+                        </p>
+                        <div className="modal-delivery-box">
+                            <span>Θα παραδοθεί στη στάση:</span>
+                            <h4>{selectedCafe.nextStop}</h4>
+                        </div>
+                        <p className="modal-pay-info">
+                            Πληρωμή: <strong>Χρέωση Κάρτας</strong> (€{total.toFixed(2)})
+                        </p>
+                        <button type="button" className="btn-modal-close" onClick={handleReset}>
+                            Νέα Παραγγελία
+                        </button>
+                    </div>
+                </div>
+            )}
 
             <Footer />
         </div>
