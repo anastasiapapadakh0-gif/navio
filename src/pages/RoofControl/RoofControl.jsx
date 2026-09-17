@@ -12,7 +12,10 @@ import Footer from "../../components/Footer/Footer";
 import CurrentWeather from "../../components/ClimateControl/CurrentWeather";
 import RoofRecommendation from "./RoofRecommendation";
 import OnOffButton from "./OnOffButton";
-import LiveRoofView from "./LiveRoofView";
+import LiveImageView from "../../components/LiveImageView/LiveImageView";
+
+import roofOpenImg from "../../assets/images/employee/roof-open.png";
+import roofClosedImg from "../../assets/images/employee/roof-closed.png";
 
 import { generateWeather } from "../../data/weatherGenerator";
 import { useState, useEffect } from "react";
@@ -21,6 +24,9 @@ function RoofControl() {
 
     const [currentWeather, setCurrentWeather] = useState(generateWeather());
     const [activeButton, setActiveButton] = useState(false);
+
+    const roofImage = activeButton ? roofOpenImg : roofClosedImg;
+
     // Προσομοίωση αλλαγής των καιρικών συνθηκών κάθε 10 δευτερόλεπτα
     useEffect(() => {
 
@@ -57,8 +63,10 @@ function RoofControl() {
             </div>
 
             {/* Ζωντανή απεικόνιση της κατάστασης της οροφής */}
-            <LiveRoofView
-                activeButton={activeButton}/>
+            <LiveImageView
+                title="🔴 Live Roof View"
+                image={roofImage}
+            />
             <Footer />
         </div>
     );
