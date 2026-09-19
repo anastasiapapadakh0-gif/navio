@@ -20,6 +20,7 @@ function LiveView() {
             <Header
                 title="Live Road View"
                 description="Choose if you want to see the route from the driver's perspective."
+                backTo="/passenger"
             />
 
             <BusInfo />

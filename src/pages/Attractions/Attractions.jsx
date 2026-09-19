@@ -62,6 +62,7 @@ function Attractions() {
             <Header
                 title="Nearby Attractions"
                 description="Discover nearby sights and listen to short audio guides."
+                backTo="/passenger"
             />
 
             <BusInfo />

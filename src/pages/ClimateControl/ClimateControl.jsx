@@ -35,6 +35,7 @@ function ClimateControl() {
             <Header
                 title="Climate Control!"
                 description="Adjust climate settings and monitor solar energy based on current weather conditions."
+                backTo="/driver"
             ></Header>
             
             <div className="climate-blocks">

@@ -22,7 +22,8 @@ function Employee() {
         {/* Κοινό Header της εφαρμογής */}
         <Header
             title="Welcome Employee!"
-            description="Manage the smart roof and monitor the cleaning process.">
+            description="Manage the smart roof and monitor the cleaning process."
+            backTo="/choose-role">
         </Header>
 
         {/* Εμφάνιση βασικών πληροφοριών του λεωφορείου */}

@@ -42,7 +42,8 @@ function RoofControl() {
         <div className="page roof-control">
             <Header
                 title="Roof Control!"
-                description="Adjust temperature settings based on current conditions.">
+                description="Adjust temperature settings based on current conditions."
+                backTo="/employee">
             </Header>
 
             <div className="climate-blocks">

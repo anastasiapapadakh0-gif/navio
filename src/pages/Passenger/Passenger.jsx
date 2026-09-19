@@ -23,6 +23,7 @@ function Passenger() {
             <Header
                 title="Welcome Passenger!"
                 description="Explore the city and enjoy your smart bus ride."
+                backTo="/choose-role"
             />
 
             <BusInfo />

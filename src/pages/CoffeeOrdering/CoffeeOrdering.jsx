@@ -57,6 +57,7 @@ function CoffeeOrdering() {
             <Header
                 title="Παραγγελίες από Συνεργαζόμενες Καφετέριες"
                 description="Παραγγείλτε ρόφημα ή γεύμα και παραλάβετέ το στην επόμενη στάση του λεωφορείου."
+                backTo="/passenger"
             />
 
             <BusInfo />

@@ -91,7 +91,8 @@ function DrivingAssistance() {
 
             <Header
             title="Driving Assistance!"
-            description="Receive real-time alerts to support safe driving">
+            description="Receive real-time alerts to support safe driving"
+            backTo="/driver">
             </Header>
 
             <BusInfo />

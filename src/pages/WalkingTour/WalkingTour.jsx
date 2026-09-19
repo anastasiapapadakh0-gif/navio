@@ -35,6 +35,7 @@ function WalkingTour() {
             <Header
                 title="Walking Tour GPS"
                 description="Let NAVIO help you find nearby places around your current stop."
+                backTo="/passenger"
             />
 
             <div className="guide-card">

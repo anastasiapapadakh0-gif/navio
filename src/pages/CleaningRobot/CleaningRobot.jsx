@@ -148,6 +148,7 @@ function CleaningRobot() {
             <Header
                 title="Cleaning Robot!"
                 description="Monitor the cleaning process and found items."
+                backTo="/employee"
             />
 
             <div className="white-info-cards">

@@ -22,7 +22,8 @@ function Driver() {
 
         <Header
             title="Welcome Driver!"
-            description="Everything is set up for your ride.">
+            description="Everything is set up for your ride."
+            backTo="/choose-role">
         </Header>
 
         <BusInfo />

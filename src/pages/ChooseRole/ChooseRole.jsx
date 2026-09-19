@@ -17,7 +17,9 @@ function ChooseRole() {
     <div className="page choose-role" style={{ backgroundImage: `url(${background})` }}>
       <Header
       title="Choose your role!"
-      description="Select how you want to continue."/>
+      description="Select how you want to continue."
+      backTo="/"
+      />
 
       {/* Κάρτες επιλογής ρόλου */}
         <div className="choose-role-cards">
