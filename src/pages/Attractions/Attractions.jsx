@@ -1,176 +1,95 @@
-import React, { useState, useEffect } from "react";
+/* Σελίδα κοντινών αξιοθεάτων.
+   Εμφανίζει το κοντινότερο αξιοθέατο
+   σύμφωνα με την πορεία του λεωφορείου
+   και δίνει δυνατότητα ακρόασης πληροφοριών. */
+
+import { useState, useEffect } from "react";
 import "./Attractions.css";
+
 import Header from "../../components/Header/Header";
 import BusInfo from "../../components/BusInfo/BusInfo";
 import Footer from "../../components/Footer/Footer";
 
-const SIGHTS_DATA = [
-    {
-        id: 1,
-        name: "Acropolis & Parthenon",
-        distance: "150m away",
-        description:
-            "The ancient citadel located on a rocky outcrop above the city, containing the remains of several ancient buildings of great architectural and historic significance.",
-        lat: 37.9715,
-        lon: 23.7257,
-        speechText: "Welcome to the Parthenon, dedicated to Athena, the patron goddess of Athens."
-    },
-    {
-        id: 2,
-        name: "Acropolis Museum",
-        distance: "300m away",
-        description:
-            "An archaeological museum focused on the findings of the archaeological site of the Acropolis of Athens.",
-        lat: 37.9684,
-        lon: 23.7285,
-        speechText: "The Acropolis Museum showcases ancient masterpieces discovered around the sacred rock."
-    },
-    {
-        id: 3,
-        name: "Plaka Historic Neighborhood",
-        distance: "400m away",
-        description:
-            "The old historical neighborhood of Athens, clustered around the northern and eastern slopes of the Acropolis, with neoclassical architecture.",
-        lat: 37.9730,
-        lon: 23.7297,
-        speechText: "Plaka offers traditional alleys, neoclassical homes, and vibrant local culture."
-    }
-];
+import attractions from "../../data/attractionsData";
 
 function Attractions() {
-    const [selectedSight, setSelectedSight] = useState(SIGHTS_DATA[0]);
-    const [playingId, setPlayingId] = useState(null);
-    const [favorites, setFavorites] = useState([]);
 
-    useEffect(() => {
-        return () => {
-            if ("speechSynthesis" in window) {
-                window.speechSynthesis.cancel();
-            }
-        };
-    }, []);
+    // Αποθηκεύει το τρέχον αξιοθέατο που εμφανίζεται
+    const [currentAttraction, setCurrentAttraction] = useState(0);
+    // Αποθηκεύει αν το audio guide παίζει ή όχι
+    const [isPlaying, setIsPlaying] = useState(false);
+    // Αποθηκεύει το αντικείμενο του τρέχοντος αξιοθέατου   
+    const attraction = attractions[currentAttraction];
 
-    const toggleFavorite = (id, e) => {
-        e.stopPropagation();
-        setFavorites((prev) =>
-            prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-        );
-    };
+    const playAudio = () => {
 
-    const handleToggleAudio = (sight, e) => {
-        e.stopPropagation();
-        setSelectedSight(sight);
-
-        if (!("speechSynthesis" in window)) {
-            alert("Speech audio is not supported in this browser.");
-            return;
-        }
-
-        if (playingId === sight.id) {
-            window.speechSynthesis.cancel();
-            setPlayingId(null);
-            return;
-        }
-
+    if (isPlaying) {
         window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(sight.speechText);
-        utterance.lang = "en-US";
-        utterance.rate = 0.95;
+        setIsPlaying(false);
+    } else {
+        const audio = new SpeechSynthesisUtterance(attraction.description);
+        audio.lang = "en-US";
+        // ώστε όταν τελειώσει το audio να αλλάξει και το state του isPlaying σε false
+        audio.onend = () => setIsPlaying(false);
 
-        utterance.onend = () => setPlayingId(null);
-        utterance.onerror = () => setPlayingId(null);
+        setIsPlaying(true);
+        window.speechSynthesis.speak(audio);
+    }
+};
 
-        setPlayingId(sight.id);
-        window.speechSynthesis.speak(utterance);
-    };
+    // Αλλάζει το αξιοθέατο κάθε 30 δευτερόλεπτα (όπως και στο bus info)
+    useEffect(() => {
 
-    const mapSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${selectedSight.lon - 0.007}%2C${selectedSight.lat - 0.004}%2C${selectedSight.lon + 0.007}%2C${selectedSight.lat + 0.004}&layer=mapnik&marker=${selectedSight.lat}%2C${selectedSight.lon}`;
+        const interval = setInterval(() => {
+
+            setCurrentAttraction((previousAttraction) => {
+
+                if (previousAttraction === attractions.length - 1) {
+                    return 0;
+                }
+
+                return previousAttraction + 1;
+            });
+
+        }, 30000);
+
+        return () => clearInterval(interval);
+
+    }, []);
 
     return (
         <div className="page attractions-page">
             <Header
                 title="Nearby Attractions"
-                description="Discover famous landmarks, points of interest, and audio guides near your stop."
+                description="Discover nearby sights and listen to short audio guides."
             />
 
             <BusInfo />
 
-            <div className="attractions-layout-grid">
-                {/* Αριστερή Στήλη: Λίστα Αξιοθεάτων */}
-                <div className="attractions-cards-col">
-                    <div className="section-header-bar">
-                        <h2 className="section-title">Sights Near Current Stop</h2>
-                        <span className="fav-counter-badge">
-                            ❤️ Saved: {favorites.length}
-                        </span>
-                    </div>
+            <div className="attraction-block">
 
-                    <div className="cards-stack">
-                        {SIGHTS_DATA.map((sight) => {
-                            const isSelected = selectedSight.id === sight.id;
-                            const isPlaying = playingId === sight.id;
-                            const isFav = favorites.includes(sight.id);
+                <div className="attraction-text">
+                    <h3>Closest Attraction</h3>
 
-                            return (
-                                <div
-                                    key={sight.id}
-                                    className={`sight-card-box ${isSelected ? "is-selected" : ""}`}
-                                    onClick={() => setSelectedSight(sight)}
-                                >
-                                    <div className="sight-header-row">
-                                        <h3 className="sight-name-text">{sight.name}</h3>
-                                        <div className="sight-top-actions">
-                                            <span className="sight-badge">📍 {sight.distance}</span>
-                                            <button
-                                                type="button"
-                                                className={`fav-btn ${isFav ? "active" : ""}`}
-                                                onClick={(e) => toggleFavorite(sight.id, e)}
-                                                title="Save to favorites"
-                                            >
-                                                {isFav ? "❤️" : "🤍"}
-                                            </button>
-                                        </div>
-                                    </div>
+                    <h2>{attraction.title}</h2>
 
-                                    <p className="sight-desc-text">{sight.description}</p>
+                    <p>{attraction.description}</p>
 
-                                    <div className="sight-action-row">
-                                        <button
-                                            type="button"
-                                            className={`audio-btn ${isPlaying ? "is-playing" : ""}`}
-                                            onClick={(e) => handleToggleAudio(sight, e)}
-                                        >
-                                            {isPlaying ? "⏸ Stop Audio Guide" : "📢 Listen Guide"}
-                                        </button>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
+                    <button
+                        className="button-green"
+                        onClick={playAudio}
+                    >
+                        {isPlaying ? "Stop Guide" : "Listen Guide"}
+                    </button>
                 </div>
 
-                {/* Δεξιά Στήλη: Χάρτης & Preview */}
-                <div className="attractions-map-col">
-                    <h2 className="section-title">Sight Preview & Map</h2>
-                    <div className="big-map-card">
-                        <div className="map-frame-wrapper">
-                            <iframe
-                                title="Sight Map"
-                                className="full-map-iframe"
-                                src={mapSrc}
-                            />
-                        </div>
-                        <div className="map-bottom-banner">
-                            <div>
-                                <h4 className="banner-place">{selectedSight.name}</h4>
-                                <p className="banner-meta">📍 {selectedSight.distance} from current bus position</p>
-                            </div>
-                            {playingId === selectedSight.id && (
-                                <span className="banner-live-pulse">🔊 Playing Guide</span>
-                            )}
-                        </div>
-                    </div>
+                <div className="attraction-image">
+                    <img
+                        src={attraction.image}
+                        alt={attraction.title}
+                    />
                 </div>
+
             </div>
 
             <Footer />

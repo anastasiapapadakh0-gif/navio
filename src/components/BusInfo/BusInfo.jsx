@@ -14,14 +14,6 @@ function BusInfo() {
 
         // Πίνακας με όλες τις στάσεις της διαδρομής
         const stops = [
-        "Anthoupoli",
-        "Peristeri",
-        "Agios Antonios",
-        "Sepolia",
-        "Attiki",
-        "Stathmos Larisis",
-        "Metaxourgio",
-        "Omonoia",
         "Panepistimio",
         "Syntagma",
         "Akropoli",
@@ -31,7 +23,15 @@ function BusInfo() {
         "Dafni",
         "Ilioupoli",
         "Alimos",
-        "Elliniko"
+        "Elliniko",
+        "Anthoupoli",
+        "Peristeri",
+        "Agios Antonios",
+        "Sepolia",
+        "Attiki",
+        "Stathmos Larisis",
+        "Metaxourgio",
+        "Omonoia"
         ];
         
         // Αυτόματη αλλαγή στάσης ανά 30 δευτερόλεπτα
@@ -55,7 +55,7 @@ function BusInfo() {
     
     return (
 
-    <div className="driver-information">
+            <div className="driver-information">
 
                 <div className="driver-info-item">
                     <img src={bus} />
@@ -87,6 +87,7 @@ function BusInfo() {
                 </div>
 
             </div>
+
     );
     
 }export default BusInfo;

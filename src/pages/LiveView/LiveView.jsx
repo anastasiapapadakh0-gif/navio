@@ -1,77 +1,46 @@
 /* Σελίδα ζωντανής προβολής διαδρομής.
-Επιτρέπει στον επιβάτη να βλέπει την πορεία του λεωφορείου από την οπτική του οδηγού σε πραγματικό χρόνο 
-και να εναλλάσσει μεταξύ μετωπικής (Front) και πανοραμικής (Panoramic) θέας. */
+Επιτρέπει στον επιβάτη να βλέπει τη θέα
+της διαδρομής από την οπτική του οδηγού. */
 
 import React, { useState } from "react";
 import "./LiveView.css";
+
 import Header from "../../components/Header/Header";
 import BusInfo from "../../components/BusInfo/BusInfo";
 import Footer from "../../components/Footer/Footer";
-
-// Εισαγωγή των δύο custom εικόνων
-import frontViewImg from "../../assets/images/FrontViewBus.png";
-import panoramicViewImg from "../../assets/images/PanoramicViewBus.png";
+import LiveImageView from "../../components/LiveImageView/LiveImageView";
+import frontViewImg from "../../assets/images/passenger/FrontViewBus.png";
 
 function LiveView() {
-    const [cameraAngle, setCameraAngle] = useState("Front View");
-    const [isStreamActive, setIsStreamActive] = useState(true);
-
-    const handleSwitchAngle = () => {
-        setCameraAngle((prevAngle) =>
-            prevAngle === "Front View" ? "Panoramic View" : "Front View"
-        );
-    };
-
-    const currentViewImage =
-        cameraAngle === "Front View" ? frontViewImg : panoramicViewImg;
+    const [viewActive, setViewActive] = useState(true);
+    const roadImage = viewActive ? frontViewImg : null;
 
     return (
         <div className="page live-view-page">
             <Header
                 title="Live Road View"
-                description="Enjoy the panoramic front view of the bus route in real time."
+                description="Choose if you want to see the route from the driver's perspective."
             />
 
             <BusInfo />
+            <div className="view-control">
+                <span>
+                    {viewActive ? "Driver's view is active" : "Driver's view is disabled"}
+                </span>
 
-            <div className="live-view-container">
-                <div className="video-card">
-                    <div className="stream-header">
-                        <span className="live-badge">● LIVE STREAM</span>
-                        <span className="current-angle">{cameraAngle}</span>
-                    </div>
-
-                    <div className="stream-display">
-                        {isStreamActive ? (
-                            <img
-                                src={currentViewImage}
-                                alt={`Live bus stream - ${cameraAngle}`}
-                                className="stream-image"
-                            />
-                        ) : (
-                            <div className="stream-placeholder">
-                                <p>⏸ Camera Stream Paused</p>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="stream-controls">
-                        <button
-                            className="stream-btn"
-                            onClick={() => setIsStreamActive(!isStreamActive)}
-                        >
-                            {isStreamActive ? "Pause Stream" : "Resume Stream"}
-                        </button>
-                        <button
-                            className="stream-btn switch-btn"
-                            onClick={handleSwitchAngle}
-                        >
-                            Switch Camera Angle
-                        </button>
-                    </div>
-                </div>
+                <button
+                    className={viewActive ? "inactive-blue-button" : "active-blue-button"}
+                    onClick={() => setViewActive(!viewActive)}
+                >
+                    {viewActive ? "Hide View" : "Show View"}
+                </button>
             </div>
 
+            <LiveImageView
+                title="🔴 Driver's View"
+                image={roadImage}
+                placeholderText=""
+            />
             <Footer />
         </div>
     );

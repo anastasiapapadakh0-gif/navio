@@ -7,6 +7,8 @@
     justify-content:space-between;
     margin-bottom:40px;
     box-shadow:0 8px 25px rgba(0,0,0,.08);
+    position: relative;
+    overflow: hidden;
 }
 .driver-info-item{
     display:flex;
@@ -41,3 +43,35 @@
     }
 }
 
+/* το φόντο της μπάρας */
+.driver-information::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #ddd;
+}
+
+/* η μπάρα που γεμίζει */
+.driver-information::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 4px;
+    background-color: #3B82F6;
+    animation: stopProgress 30s linear infinite;
+}
+
+@keyframes stopProgress {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
