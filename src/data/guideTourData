@@ -1,0 +1,90 @@
+const walkingTourData = [
+    {
+        stop: "Acropolis",
+
+        attraction: {
+            title: "Acropolis",
+            lat: 37.97154734434041,
+            lon: 23.72578492558545
+        },
+
+        cafe: {
+            title: "Acron Cafe",
+            lat: 37.96864674759206,
+            lon: 23.730119624709754
+        },
+
+        busStop: {
+            title: "Acropolis Bus Stop",
+            lat: 37.96875239746045,
+            lon: 23.729609288981074
+        }
+    },
+
+    {
+        stop: "Syntagma",
+
+        attraction: {
+            title: "Hellenic Parliament",
+            lat: 37.97536441402456,
+            lon: 23.73711132076703
+        },
+
+        cafe: {
+            title: "Holy Llama",
+            lat: 37.97407407625372,
+            lon: 23.733146159041038
+        },
+
+        busStop: {
+            title: "Syntagma Bus Stop",
+            lat: 37.975575853003726,
+            lon: 23.735453708546803
+        }
+    },
+
+    {
+        stop: "Agios Ioannis",
+
+        attraction: {
+            title: "Panathenaic Stadium",
+            lat: 37.968571314284496,
+            lon: 23.741112336280796
+        },
+
+        cafe: {
+            title: "Shūga",
+            lat: 37.96006787566611,
+            lon: 23.7403653461853
+        },
+
+        busStop: {
+            title: "Agios Ioannis Bus Stop",
+            lat: 37.95657430375175,
+            lon: 23.7345287529799
+        }
+    },
+    {
+        stop: "Panepistimio",
+
+        attraction: {
+            title: "Academy of Athens",
+            lat: 37.980703839481954,
+            lon: 23.73374021192833
+        },
+
+        cafe: {
+            title: "Sol Bake and Coffee Project",
+            lat: 37.97813407364837,
+            lon: 23.730538545350758
+        },
+
+        busStop: {
+            title: "Panepistimio Bus Stop",
+            lat: 37.98036579366454,
+            lon: 23.733027531420216
+        }
+    }
+];
+
+export default walkingTourData;
