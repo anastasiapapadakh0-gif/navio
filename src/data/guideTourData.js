@@ -9,9 +9,9 @@ const walkingTourData = [
         },
 
         cafe: {
-            title: "Acron Cafe",
-            lat: 37.96864674759206,
-            lon: 23.730119624709754
+            title: "Açaí Verão Athens",
+            lat: 37.966849914925064,
+            lon: 23.728624869690865
         },
 
         busStop: {
@@ -53,9 +53,9 @@ const walkingTourData = [
         },
 
         cafe: {
-            title: "Shūga",
-            lat: 37.96006787566611,
-            lon: 23.7403653461853
+            title: "Coffee lab",
+            lat: 37.956820531080695,
+            lon: 23.727404583037586
         },
 
         busStop: {
@@ -74,9 +74,9 @@ const walkingTourData = [
         },
 
         cafe: {
-            title: "Sol Bake and Coffee Project",
-            lat: 37.97813407364837,
-            lon: 23.730538545350758
+            title: "Anana Coffee & Food",
+            lat: 37.97908562300994,
+            lon: 23.72939295694319
         },
 
         busStop: {
