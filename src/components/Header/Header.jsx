@@ -3,7 +3,7 @@
 και το κουμπί επιστροφής.
 Το περιεχόμενό του προσαρμόζεται μέσω props. */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import HelpModal from "../HelpModal/HelpModal";

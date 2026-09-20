@@ -2,7 +2,7 @@
 Επιτρέπει στον επιβάτη να βλέπει τη θέα
 της διαδρομής από την οπτική του οδηγού. */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import "./LiveView.css";
 
 import Header from "../../components/Header/Header";
