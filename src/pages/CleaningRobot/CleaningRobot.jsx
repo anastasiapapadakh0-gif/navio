@@ -94,9 +94,11 @@ function CleaningRobot() {
 
     // Προσομοίωση εύρεσης αντικειμένων
     useEffect(() => {
+        if (robotProgress <= 0 || robotProgress % 20 !== 0) {
+            return;
+        }
 
-        if (robotProgress > 0 && robotProgress % 20 === 0) {
-
+        const timeout = setTimeout(() => {
             const items = [
                 "Passport",
                 "Money",
@@ -104,17 +106,15 @@ function CleaningRobot() {
             ];
 
             setFoundItems((foundItems) => [
-
                 ...foundItems,
-
                 {
                     item: items[Math.floor(Math.random() * items.length)],
                     seat: Math.floor(Math.random() * 62) + 1
                 }
-
             ]);
+        }, 0);
 
-        }
+        return () => clearTimeout(timeout);
 
     }, [robotProgress]);
 
