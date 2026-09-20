@@ -4,6 +4,7 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
+    margin: 0 auto 25px auto;
 }
 
 .back-button {
@@ -32,26 +33,25 @@
 }
 
 .help-trigger-btn {
+    font-family: inherit;
     justify-self: end;
-    background: #0f766e;
-    color: #ffffff;
-    border: none;
-    border-radius: 20px;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    font-weight: 700;
+    align-self: center;
+
+    font-size: 18px;
+    font-weight: bold;
+    color: #1F2937;
+
+    background: #ffffff;
+    border: 1px solid #dbe2ea;
+    border-radius: 12px;
+    padding: 8px 14px;
+    margin: 0;
+
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    box-shadow: 0 2px 6px rgba(15, 118, 110, 0.25);
-    transition: background 0.2s ease, transform 0.1s ease;
+
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.08);
 }
 
-.help-trigger-btn:hover {
-    background: #115e59;
-    transform: scale(1.05);
-}
 
 @media (max-width: 900px) {
     .header {

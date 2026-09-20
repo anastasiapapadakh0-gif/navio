@@ -38,9 +38,9 @@ function Header({ title, description, backTo }) {
                 type="button"
                 className="help-trigger-btn"
                 onClick={() => setShowHelp(true)}
-                title="Οδηγίες & Βοήθεια"
+                title="Help & Instructions"
             >
-                ❓ Βοήθεια
+                ? Help
             </button>
 
             <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} />
