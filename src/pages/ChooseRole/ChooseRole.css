@@ -14,13 +14,14 @@ p {
     margin-bottom: 50px;
 }
 .choose-role-cards {
+    width: 80%;
     display: flex;
-    justify-content: center;
+    justify-content:space-between;
     gap: 40px;
     flex-wrap: wrap;
 }
 .role-card {
-    width: 270px;
+    width: 290px;
     height: 250px;
     background: #fdfdfd;
     border-radius: 15px;

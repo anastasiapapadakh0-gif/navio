@@ -26,17 +26,17 @@ function ChooseRole() {
 
           <div className="role-card" onClick={() => navigate("/passenger")}>
             <h2>Passenger</h2>
-            <span>View route & attractions</span>
+            <span>Track routes, stops & attractions</span>
           </div>
 
           <div className="role-card" onClick={() => navigate("/driver")}>
             <h2>Driver</h2>
-            <span>Driving assistance</span>
+            <span>Navigate routes & monitor road conditions</span>
           </div>
 
           <div className="role-card" onClick={() => navigate("/employee")}>
             <h2>Employee</h2>
-            <span>Bus management</span>
+            <span>Manage bus systems, roof & cleaning</span>
           </div>
 
         </div>
