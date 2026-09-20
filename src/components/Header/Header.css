@@ -1,35 +1,67 @@
 .header {
     width: 80%;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
 }
+
 .back-button {
     justify-self: start;
     font-size: 20px;
     font-weight: bold;
     color: #1F2937;
     cursor: pointer;
-    padding-right: 40px;
+    margin: 0;
 }
-.header-text h1,p {
+
+.header-text {
     justify-self: center;
-    display:flex;
-    flex-direction:column;
+    text-align: center;
+}
+
+.header-text h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #0f172a;
 }
 
 .header-text p {
-    padding-top: 20px;
+    margin: 8px 0 0 0;
+    color: #64748b;
 }
 
+.help-trigger-btn {
+    justify-self: end;
+    background: #0f766e;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 6px rgba(15, 118, 110, 0.25);
+    transition: background 0.2s ease, transform 0.1s ease;
+}
 
-@media (max-width: 900px){
-    
-    .header{
-        display:flex;
-        flex-direction:column;
+.help-trigger-btn:hover {
+    background: #115e59;
+    transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        align-items: center;
     }
-    .header-text h1, p{
-        text-align:center;
+
+    .back-button, .help-trigger-btn {
+        justify-self: center;
     }
 }
