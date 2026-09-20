@@ -146,8 +146,8 @@ function CleaningRobot() {
         <div className="page cleaning-robot">
 
             <Header
-                title="Cleaning Robot!"
-                description="Monitor the cleaning process and found items."
+                title="Cleaning Robot"
+                description="Start the cleaning cycle and monitor progress, battery level and detected items."
                 backTo="/employee"
             />
 

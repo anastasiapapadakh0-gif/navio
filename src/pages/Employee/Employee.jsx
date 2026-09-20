@@ -22,7 +22,7 @@ function Employee() {
         {/* Κοινό Header της εφαρμογής */}
         <Header
             title="Welcome Employee!"
-            description="Manage the smart roof and monitor the cleaning process."
+            description="Manage the smart roof and control the bus cleaning system."
             backTo="/choose-role">
         </Header>
 
@@ -43,7 +43,7 @@ function Employee() {
 
             <ActionCard
                 title="Cleaning Robot"
-                description="Monitor cleaning tasks and review valuable items detected after each route."
+                description="Track cleaning progress, battery level and valuable items detected during cleaning."
                 buttonText="Open"
                 background={cleaningrobotbg}
                 buttonClass="button-orange"

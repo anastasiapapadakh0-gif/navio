@@ -22,7 +22,7 @@ function Driver() {
 
         <Header
             title="Welcome Driver!"
-            description="Everything is set up for your ride."
+            description="Monitor driving safety and manage cabin climate during the route."
             backTo="/choose-role">
         </Header>
 
@@ -32,7 +32,7 @@ function Driver() {
 
             <ActionCard
             title="Driving Assistance"
-            description="Monitor your driving, lane position, speed and passenger safety in real time."
+            description="Monitor speed, lane position and passenger boarding with real-time safety alerts."
             buttonText="Activation"
             background={driverassistancebg}
             buttonClass="button-blue"

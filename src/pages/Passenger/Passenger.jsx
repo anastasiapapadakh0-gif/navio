@@ -22,7 +22,7 @@ function Passenger() {
         <div className="page passenger">
             <Header
                 title="Welcome Passenger!"
-                description="Explore the city and enjoy your smart bus ride."
+                description="Explore nearby places and access useful services throughout your ride."
                 backTo="/choose-role"
             />
 
@@ -31,7 +31,7 @@ function Passenger() {
             <div className="passenger-cards">
                 <ActionCard
                     title="Live Front View"
-                    description="Watch the road ahead in real time, directly from the driver's perspective."
+                    description="View the road ahead in real time from the driver's perspective."
                     buttonText="View"
                     background={roadbg}
                     buttonClass="button-blue"
@@ -39,8 +39,8 @@ function Passenger() {
                 />
 
                 <ActionCard
-                    title="Nearby Sights"
-                    description="Discover sights around each stop with detailed audio guides and maps."
+                    title="Nearby Attractions"
+                    description="Discover nearby sights and listen to short audio guides."
                     buttonText="Explore"
                     background={sightsbg}
                     buttonClass="button-orange"
@@ -49,7 +49,7 @@ function Passenger() {
 
                 <ActionCard
                     title="Order from Cafe"
-                    description="Order drinks or snacks from partner cafes and pick them up at the next stop."
+                    description="OOrder drinks or snacks from partner cafes for pickup at a designated bus stop."
                     buttonText="Order"
                     background={cafebg}
                     buttonClass="button-orange"
@@ -58,7 +58,7 @@ function Passenger() {
 
                 <ActionCard
                     title="Walking Tour GPS"
-                    description="Get guided navigation on foot around the stop and easily find your way back."
+                    description="Use GPS to find nearby attractions, cafes, restaurants and bus stops around your current area."
                     buttonText="Start"
                     background={gpsbg}
                     buttonClass="button-blue"

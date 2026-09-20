@@ -245,7 +245,7 @@ function CoffeeOrdering() {
                                     placeholder="12 digits"
                                     value={paymentInfo.cardNumber}
                                     onChange={handlePaymentChange}
-                                    maxLength="16"
+                                    maxLength="12"
                                 />
 
                                 <input

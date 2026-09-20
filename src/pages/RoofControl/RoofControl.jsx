@@ -41,8 +41,8 @@ function RoofControl() {
     return (
         <div className="page roof-control">
             <Header
-                title="Roof Control!"
-                description="Adjust temperature settings based on current conditions."
+                title="Roof Control"
+                description="Monitor weather conditions and control the smart roof."
                 backTo="/employee">
             </Header>
 

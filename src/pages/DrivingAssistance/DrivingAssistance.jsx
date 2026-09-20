@@ -90,7 +90,7 @@ function DrivingAssistance() {
         <div className="page driving-assistance">
 
             <Header
-            title="Driving Assistance!"
+            title="Driving Assistance"
             description="Receive real-time alerts to support safe driving"
             backTo="/driver">
             </Header>
@@ -128,7 +128,7 @@ function DrivingAssistance() {
 
                     <h3> Doors</h3>
                     <img src={people}></img>
-                    <p> Passenger exit detection active</p>
+                    <p> Passenger boarding monitoring active</p>
                     <p className ={`status-label ${warning  === "doors"? "status-label-warning" : ""}`}>
                         {warning === "doors"
                         ? "Passengers still boarding"
